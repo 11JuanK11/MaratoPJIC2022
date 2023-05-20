@@ -33,16 +33,30 @@ public class Reto4 {
                 vel[j] = Integer.parseInt(c[j]);
                 pos[j] = Integer.parseInt(d[j]);
             }
-            for (int j = 0; j < dimen; j++) {
-                if(bal[j] == pos[j]){
-                    for (int k = 0; k < dimen ; k++) {
-                        if(k != j){
-                            cont += Math.pow( pos[k], 2);
+            boolean ban = true;
+                while(ban){
+                    //Comparar posicion balon y posicion de geek
+                    for (int j = 0; j < dimen; j++) {
+                        if (bal[j] == pos[j]) {
+                            for (int k = 0; k < dimen; k++) {
+                                if (k != j) {
+                                    cont += Math.pow(pos[k], 2);
+                                }
+                            }
                         }
                     }
+                    for (int k = 0; k < dimen; k++) {
+                        if(bal[k] == pos[k] || bal[k] == limit[k]){
+                            ban = false;
+                        }
+                        bal[k] += vel[k];
+                        
+                    }
+                    minv[i] = (float) (Math.sqrt(cont));
                 }
-            }
-            minv[i] = (float)(Math.sqrt(cont));
+                
+            
+            
         }
         for (int i = 0; i < minv.length ; i++) {
             System.out.printf("%.4f",minv[i]);
