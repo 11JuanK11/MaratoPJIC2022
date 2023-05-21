@@ -13,12 +13,13 @@ import java.util.Scanner;
 public class Reto4 {
     public static void TheSportOfKings(){
         Scanner escan = new Scanner(System.in);
-        int casos = Integer.parseInt(escan.nextLine()) ;
-        int[] bal, vel, pos, limit;
+        int casos = Integer.parseInt(escan.nextLine()), cont ;
+        int[] bal, vel, pos, limit ;
         String[] a,b,c,d;
         float[] minv = new float[casos];
         for(int i = 0; i < casos; i++){
-            int dimen = Integer.parseInt(escan.nextLine()), cont = 0;
+            cont = 0;
+            int dimen = Integer.parseInt(escan.nextLine());
             limit = new int[dimen];
             bal = new int[dimen];
             vel = new int[dimen];
@@ -33,30 +34,35 @@ public class Reto4 {
                 vel[j] = Integer.parseInt(c[j]);
                 pos[j] = Integer.parseInt(d[j]);
             }
+            
             boolean ban = true;
-                while(ban){
-                    //Comparar posicion balon y posicion de geek
-                    for (int j = 0; j < dimen; j++) {
-                        if (bal[j] == pos[j]) {
-                            for (int k = 0; k < dimen; k++) {
-                                if (k != j) {
-                                    cont += Math.pow(pos[k], 2);
-                                }
-                            }
-                        }
-                    }
-                    for (int k = 0; k < dimen; k++) {
-                        if(bal[k] == pos[k] || bal[k] == limit[k]){
-                            ban = false;
-                        }
-                        bal[k] += vel[k];
-                        
-                    }
-                    minv[i] = (float) (Math.sqrt(cont));
+            int  igualdades=0, iterador[];
+            iterador = new int[dimen];
+            do{
+                for (int k = 0; k < dimen; k++) {
+                    bal[k] += vel[k]; 
+                    if(bal[k] == pos[k] || bal[k] > limit[k]){
+                        ban = false;
+                    }         
+                }             
+            }while(ban);
+
+            for (int j = 0; j < dimen; j++) {
+                if (bal[j] == pos[j] ) {
+                    igualdades++;
+                    iterador[j] = j;
                 }
-                
-            
-            
+            } 
+            if(igualdades < dimen){
+                for (int j = 0; j < dimen; j++) {
+                    if( iterador[j] != j){
+                        cont += Math.pow( pos[j], 2);
+                    }
+                }
+            }else{
+                cont = 0;
+            }
+            minv[i] = (float) (Math.sqrt(cont));  
         }
         for (int i = 0; i < minv.length ; i++) {
             System.out.printf("%.4f",minv[i]);
