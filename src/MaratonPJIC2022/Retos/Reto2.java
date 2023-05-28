@@ -51,6 +51,8 @@ public class Reto2 {
             if(contMin == contMay){
                 if(contMin > errores && contMay > errores){
                     System.out.println("none");
+                }else{
+                    System.out.println("both");
                 }
             }   
         }
